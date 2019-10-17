@@ -1,2 +1,2 @@
 # papano
-Play your mood at anywhere, anytime.
+Play your mood anywhere, anytime.
