@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/AndroidStudioProjects/wherever_piano/app/.cxx/cmake/release/armeabi-v7a",
+  "command": "C:\\OpenCV-android-sdk\\ndk\\20.0.5594570\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi23 --gcc-toolchain=C:/OpenCV-android-sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/OpenCV-android-sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dnative_lib_EXPORTS -ID:/AndroidStudioProjects/wherever_piano/opencv/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security   -std=gnu++11 -Oz -DNDEBUG  -fPIC   -o CMakeFiles\\native-lib.dir\\native-lib.cpp.o -c D:\\AndroidStudioProjects\\wherever_piano\\app\\src\\main\\cpp\\native-lib.cpp",
+  "file": "D:\\AndroidStudioProjects\\wherever_piano\\app\\src\\main\\cpp\\native-lib.cpp"
+}
+]

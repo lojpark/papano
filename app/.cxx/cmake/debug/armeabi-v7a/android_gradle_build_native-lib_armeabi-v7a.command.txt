@@ -1,0 +1,7 @@
+Executable : C:\OpenCV-android-sdk\cmake\3.10.2.4988404\bin\ninja.exe
+arguments : 
+-C
+D:\AndroidStudioProjects\wherever_piano\app\.cxx\cmake\debug\armeabi-v7a
+native-lib
+jvmArgs : 
+
