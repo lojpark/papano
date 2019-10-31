@@ -1,7 +1,7 @@
 [
 {
-  "directory": "/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/arm64-v8a",
-  "command": "/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android23 --gcc-toolchain=/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Dnative_lib_EXPORTS -I/Users/lojpark/AndroidStudioProjects/papano/papano/opencv/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security   -std=gnu++11 -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/native-lib.dir/native-lib.cpp.o -c /Users/lojpark/AndroidStudioProjects/papano/papano/app/src/main/cpp/native-lib.cpp",
-  "file": "/Users/lojpark/AndroidStudioProjects/papano/papano/app/src/main/cpp/native-lib.cpp"
+  "directory": "D:/Dev/Software/papano/papano/app/.cxx/cmake/debug/arm64-v8a",
+  "command": "D:\\Android\\Sdk\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android23 --gcc-toolchain=D:/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dnative_lib_EXPORTS -ID:/Dev/Software/papano/papano/opencv/native/jni/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security   -std=gnu++11 -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles\\native-lib.dir\\native-lib.cpp.o -c D:\\Dev\\Software\\papano\\papano\\app\\src\\main\\cpp\\native-lib.cpp",
+  "file": "D:\\Dev\\Software\\papano\\papano\\app\\src\\main\\cpp\\native-lib.cpp"
 }
 ]

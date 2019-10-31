@@ -1,19 +1,19 @@
 {
   "buildFiles": [
-    "/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/build/cmake/platforms.cmake",
-    "/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake",
-    "/Users/lojpark/AndroidStudioProjects/papano/papano/app/src/main/cpp/CMakeLists.txt"
+    "D:\\Android\\Sdk\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+    "D:\\Android\\Sdk\\ndk-bundle\\build\\cmake\\platforms.cmake",
+    "D:\\Dev\\Software\\papano\\papano\\app\\src\\main\\cpp\\CMakeLists.txt"
   ],
   "cleanCommands": [
-    "/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/x86_64\" clean"
+    "D:\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\x86_64\" clean"
   ],
-  "buildTargetsCommand": "/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "D:\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\x86_64\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Debug-x86_64": {
       "artifactName": "native-lib",
-      "buildCommand": "/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/x86_64\" native-lib",
+      "buildCommand": "D:\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\x86_64\" native-lib",
       "abi": "x86_64",
-      "output": "/Users/lojpark/AndroidStudioProjects/papano/papano/app/build/intermediates/cmake/debug/obj/x86_64/libnative-lib.so"
+      "output": "D:\\Dev\\Software\\papano\\papano\\app\\build\\intermediates\\cmake\\debug\\obj\\x86_64\\libnative-lib.so"
     }
   }
 }

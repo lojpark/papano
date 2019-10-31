@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     public  int cols = 0;
     SoundPool sound_pool;
     int sound[] = new int[10];
+    int sound_stream[] = new int[10];
     private CameraBridgeViewBase mOpenCvCameraView;
 
     public native int stringFromJNI(long matAddrInput, long matAddrResult, int[] myarr);
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         sound_pool = new SoundPool.Builder().setMaxStreams(5).build();
         // 미리 다섯개를 로드.
 
-        sound[0] = sound_pool.load(this, R.raw.mf_a4,1);
+        sound[0] = sound_pool.load(this, R.raw.mf_a4,0);
         sound[1] = sound_pool.load(this,R.raw.mf_b4,1);
 
         mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.activity_surface_view);
@@ -165,15 +166,19 @@ public class MainActivity extends AppCompatActivity
         //    if(count == 0 /*&& entered_key == 1*/) {
         //        play(4);
 
-        if (count == 10) {
-            sound_pool.play(sound[0], 1, 1, 1, 0, 1);
-        }
         if (count == 20) {
-            sound_pool.play(sound[1],1,1,1,0,1);
+            sound_pool.stop(sound_stream[0]);
+            sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
         }
-        if (count == 30) {
-            sound_pool.play(sound[0], 1, 1, 1, 0, 1);
-            sound_pool.play(sound[1],1,1,1,0,1);
+        if (count == 40) {
+            sound_pool.stop(sound_stream[1]);
+            sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
+        }
+        if (count == 60) {
+            sound_pool.stop(sound_stream[0]);
+            sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
+            sound_pool.stop(sound_stream[1]);
+            sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
             count = 0;
         }
         count++;
