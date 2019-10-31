@@ -1,0 +1,19 @@
+{
+  "buildFiles": [
+    "/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/build/cmake/platforms.cmake",
+    "/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake",
+    "/Users/lojpark/AndroidStudioProjects/papano/papano/app/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/arm64-v8a\" clean"
+  ],
+  "buildTargetsCommand": "/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "native-lib-Debug-arm64-v8a": {
+      "artifactName": "native-lib",
+      "buildCommand": "/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/arm64-v8a\" native-lib",
+      "abi": "arm64-v8a",
+      "output": "/Users/lojpark/AndroidStudioProjects/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so"
+    }
+  }
+}

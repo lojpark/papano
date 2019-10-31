@@ -1,5 +1,0 @@
-# ninja log v5
-1	33	0	clean	daa584abdbcc23e9
-1	10	0	clean	daa584abdbcc23e9
-1	1805	592809084	CMakeFiles/native-lib.dir/native-lib.cpp.o	d804277df041e75f
-1809	2756	592809085	D:/AndroidStudioProjects/wherever_piano/app/build/intermediates/cmake/debug/obj/x86_64/libnative-lib.so	37e90d4c1013aa74
