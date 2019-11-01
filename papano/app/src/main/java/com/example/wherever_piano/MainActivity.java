@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity
 
     private Mat matInput;
     private Mat matResult;
-    public  int count = 0;
+    public  int count = 1;
+    public int state = 0;
     public  int entered_key = 0;
     public  int rows = 0;
     public  int cols = 0;
@@ -87,11 +88,16 @@ public class MainActivity extends AppCompatActivity
 
 
         //sound_pool = new SoundPool(5,AudioManager.STREAM_MUSIC,0);
-        sound_pool = new SoundPool.Builder().setMaxStreams(5).build();
+        sound_pool = new SoundPool.Builder().setMaxStreams(7).build();
         // 미리 다섯개를 로드.
 
         sound[0] = sound_pool.load(this, R.raw.mf_a4,0);
         sound[1] = sound_pool.load(this,R.raw.mf_b4,1);
+        sound[2] = sound_pool.load(this,R.raw.mf_c4,2);
+        sound[3] = sound_pool.load(this,R.raw.mf_d4,3);
+        sound[4] = sound_pool.load(this,R.raw.mf_e4,4);
+        sound[5] = sound_pool.load(this,R.raw.mf_f4,5);
+        sound[6] = sound_pool.load(this,R.raw.mf_g4,6);
 
         mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.activity_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
@@ -158,31 +164,53 @@ public class MainActivity extends AppCompatActivity
         int b = stringFromJNI(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), myarray);
         Log.v(TAG, "arr[0] = " + myarray[0] + "arr[1] = " + myarray[1] + "arr[2] = " + myarray[2]);
 
-        //Log.v(TAG, "mycount = " + count);
-        //if(count == 6){
-        //    mediaplayer.release();
-        //}
+        if (count % 10 == 0 && count > 0) {
+            if (state == 0) {
+                sound_pool.stop(sound_stream[5]);
+                sound_stream[5] = sound_pool.play(sound[5], 1, 1, 0, 0, 1);
+                sound_pool.stop(sound_stream[6]);
+                sound_stream[6] = sound_pool.play(sound[6], 1, 1, 1, 0, 1);
+                if (count == 60) {
+                    count = 0;
+                    state = 1;
+                }
+            }
 
-        //    if(count == 0 /*&& entered_key == 1*/) {
-        //        play(4);
+            else if (state == 1) {
+                sound_pool.stop(sound_stream[4]);
+                sound_stream[4] = sound_pool.play(sound[4], 1, 1, 0, 0, 1);
+                sound_pool.stop(sound_stream[6]);
+                sound_stream[6] = sound_pool.play(sound[6], 1, 1, 1, 0, 1);
+                if (count == 60) {
+                    count = 0;
+                    state = 2;
+                }
+            }
 
-        if (count == 20) {
-            sound_pool.stop(sound_stream[0]);
-            sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
-        }
-        if (count == 40) {
-            sound_pool.stop(sound_stream[1]);
-            sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
-        }
-        if (count == 60) {
-            sound_pool.stop(sound_stream[0]);
-            sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
-            sound_pool.stop(sound_stream[1]);
-            sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
-            count = 0;
+            else if (state == 2) {
+                sound_pool.stop(sound_stream[1]);
+                sound_stream[1] = sound_pool.play(sound[1], 1, 1, 0, 0, 1);
+                sound_pool.stop(sound_stream[3]);
+                sound_stream[3] = sound_pool.play(sound[3], 1, 1, 1, 0, 1);
+                if (count == 60) {
+                    count = 0;
+                    state = 3;
+                }
+            }
+
+            else if (state == 3) {
+                if (count == 10) {
+                    sound_pool.stop(sound_stream[1]);
+                    sound_pool.stop(sound_stream[3]);
+                    sound_stream[2] = sound_pool.play(sound[2], 1, 1, 0, 0, 1);
+                    sound_stream[4] = sound_pool.play(sound[4], 1, 1, 1, 0, 1);
+                    sound_stream[6] = sound_pool.play(sound[6], 1, 1, 2, 0, 1);
+                    count = -60;
+                    state = 0;
+                }
+            }
         }
         count++;
-        // 좌볼륨, 우볼륨, 동시에 소리 출력할 경우 우선순위, 반복, 재생속도
 
         return matResult;
     }
