@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity
 
     private Mat matInput;
     private Mat matResult;
-    public  int count = 0;
+    public  int count = 1;
+    public int state = 0;
     public  int entered_key = 0;
     public  int rows = 0;
     public  int cols = 0;
@@ -166,30 +167,6 @@ public class MainActivity extends AppCompatActivity
         sound[12] = sound_pool.load(this, R.raw.mf_f4,0);
         sound[13] = sound_pool.load(this, R.raw.mf_g4,0);
 
-        //mediaplayer.setAudioAttributes(audio_att);
-        //mediaplayer = MediaPlayer.create(this, R.raw.mf_a4);
-        //mediaplayer2 = MediaPlayer.create(this, R.raw.mf_b4);
-        //mediaplayer3 = MediaPlayer.create(this, R.raw.mf_c4);
-        //mediaplayer.setAudioAttributes(audio_att);
-        //mediaplayers[0] = MediaPlayer.create(this, R.raw.mf_a4);
-        //mediaplayers[1] = MediaPlayer.create(this, R.raw.mf_b4);
-        //mediaplayers[2] = MediaPlayer.create(this, R.raw.mf_c4);
-        //mediaplayers[3] = MediaPlayer.create(this, R.raw.mf_d4);
-        //mediaplayers[4] = MediaPlayer.create(this, R.raw.mf_e4);
-        //mediaplayers[5] = MediaPlayer.create(this, R.raw.mf_f4);
-        //mediaplayers[6] = MediaPlayer.create(this, R.raw.mf_g4);
-        //mediaplayers[7] = MediaPlayer.create(this, R.raw.mf_e4);
-        //mediaplayers[8] = MediaPlayer.create(this, R.raw.mf_e4);
-
-
-        //soundIDs[0] = sp.load(this, R.raw.mf_a4, 0);
-        //soundIDs[1] = sp.load(this, R.raw.mf_b4, 0);
-        //soundIDs[2] = sp.load(this, R.raw.mf_c4, 0);
-        //soundIDs[3] = sp.load(this, R.raw.mf_d4, 0);
-        //soundIDs[4] = sp.load(this, R.raw.mf_e4, 0);
-        //soundIDs[5] = sp.load(this, R.raw.mf_f4, 0);
-        //soundIDs[6] = sp.load(this, R.raw.mf_g4, 0);
-
         mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.activity_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
@@ -255,27 +232,6 @@ public class MainActivity extends AppCompatActivity
         stringFromJNI(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), keyboard_press, keyboard_available, check_array);
         //Log.v(TAG, "arr[0] = " + myarray[0] + "arr[1] = " + myarray[1] + "arr[2] = " + myarray[2]);
         //Log.v(TAG, "keyboard_check = " + keyboard_check);
-
-        //if (count == 20) {
-        //    sound_pool.stop(sound_stream[0]);
-        //    //sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
-        //    sound_pool.play(sound[0], 1, 1, 0, 0, 1);
-        //}
-        //if (count == 40) {
-        //    sound_pool.stop(sound_stream[1]);
-        //    //sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
-        //    sound_pool.play(sound[1],1,1,1,0,1);
-        //}
-        //if (count == 60) {
-        //    sound_pool.stop(sound_stream[0]);
-        //    //sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
-        //    sound_pool.play(sound[0], 1, 1, 0, 0, 1);
-        //    sound_pool.stop(sound_stream[1]);
-        //    //sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
-        //    sound_pool.play(sound[1],1,1,1,0,1);
-        //    count = 0;
-        //}
-        //count++;
 
         //int true_num = 0;
         //int true_num2 = 0;
