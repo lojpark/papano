@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity
 
     private Mat matInput;
     private Mat matResult;
-    public  int count = 1;
-    public int state = 0;
+    public  int count = 0;
     public  int entered_key = 0;
     public  int rows = 0;
     public  int cols = 0;
     boolean[] keyboard_press = new boolean[14];
     boolean[] keyboard_available = new boolean[14];
-    int[] check_array = new int[3];
+    int[] window_resolution = new int[2];
+    //int[] check_array = new int[3];
 
     //int[] pianos = {R.raw.mf_a4, R.raw.mf_b4, R.raw.mf_c4, R.raw.mf_d4, R.raw.mf_e4, R.raw.mf_f4, R.raw.mf_g4};
     SoundPool sound_pool;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
-    public native int stringFromJNI(long matAddrInput, long matAddrResult, boolean[] key_press, boolean[] key_avail, int[] check_array);
+    public native int stringFromJNI(long matAddrInput, long matAddrResult, boolean[] key_press, boolean[] key_avail, int[] window_resolution);
 
     public void play(int num){
         if (!mediaplayers[num].isPlaying())
@@ -146,26 +146,50 @@ public class MainActivity extends AppCompatActivity
             keyboard_press[i] = false;
             keyboard_available[i] = false;
         }
-        for(int i = 0 ; i < 3 ; i++){
-            check_array[i] = 0;
-        }
+        //for(int i = 0 ; i < 3 ; i++){
+        //    check_array[i] = 0;
+        //}
 
         sound_pool = new SoundPool.Builder().setMaxStreams(14).build();
         // 미리 로드.
-        sound[0] = sound_pool.load(this, R.raw.mf_a4,0);
-        sound[1] = sound_pool.load(this, R.raw.mf_b4,0);
-        sound[2] = sound_pool.load(this, R.raw.mf_c4,0);
-        sound[3] = sound_pool.load(this, R.raw.mf_d4,0);
-        sound[4] = sound_pool.load(this, R.raw.mf_e4,0);
-        sound[5] = sound_pool.load(this, R.raw.mf_f4,0);
-        sound[6] = sound_pool.load(this, R.raw.mf_g4,0);
-        sound[7] = sound_pool.load(this, R.raw.mf_a4,0);
-        sound[8] = sound_pool.load(this, R.raw.mf_b4,0);
-        sound[9] = sound_pool.load(this, R.raw.mf_c4,0);
-        sound[10] = sound_pool.load(this, R.raw.mf_d4,0);
+        sound[0] = sound_pool.load(this, R.raw.mf_b5,0);
+        sound[1] = sound_pool.load(this, R.raw.mf_a5,0);
+        sound[2] = sound_pool.load(this, R.raw.mf_g5,0);
+        sound[3] = sound_pool.load(this, R.raw.mf_f5,0);
+        sound[4] = sound_pool.load(this, R.raw.mf_e5,0);
+        sound[5] = sound_pool.load(this, R.raw.mf_d5,0);
+        sound[6] = sound_pool.load(this, R.raw.mf_c5,0);
+        sound[7] = sound_pool.load(this, R.raw.mf_b4,0);
+        sound[8] = sound_pool.load(this, R.raw.mf_a4,0);
+        sound[9] = sound_pool.load(this, R.raw.mf_g4,0);
+        sound[10] = sound_pool.load(this, R.raw.mf_f4,0);
         sound[11] = sound_pool.load(this, R.raw.mf_e4,0);
-        sound[12] = sound_pool.load(this, R.raw.mf_f4,0);
-        sound[13] = sound_pool.load(this, R.raw.mf_g4,0);
+        sound[12] = sound_pool.load(this, R.raw.mf_d4,0);
+        sound[13] = sound_pool.load(this, R.raw.mf_c4,0);
+
+        //mediaplayer.setAudioAttributes(audio_att);
+        //mediaplayer = MediaPlayer.create(this, R.raw.mf_a4);
+        //mediaplayer2 = MediaPlayer.create(this, R.raw.mf_b4);
+        //mediaplayer3 = MediaPlayer.create(this, R.raw.mf_c4);
+        //mediaplayer.setAudioAttributes(audio_att);
+        //mediaplayers[0] = MediaPlayer.create(this, R.raw.mf_a4);
+        //mediaplayers[1] = MediaPlayer.create(this, R.raw.mf_b4);
+        //mediaplayers[2] = MediaPlayer.create(this, R.raw.mf_c4);
+        //mediaplayers[3] = MediaPlayer.create(this, R.raw.mf_d4);
+        //mediaplayers[4] = MediaPlayer.create(this, R.raw.mf_e4);
+        //mediaplayers[5] = MediaPlayer.create(this, R.raw.mf_f4);
+        //mediaplayers[6] = MediaPlayer.create(this, R.raw.mf_g4);
+        //mediaplayers[7] = MediaPlayer.create(this, R.raw.mf_e4);
+        //mediaplayers[8] = MediaPlayer.create(this, R.raw.mf_e4);
+
+
+        //soundIDs[0] = sp.load(this, R.raw.mf_a4, 0);
+        //soundIDs[1] = sp.load(this, R.raw.mf_b4, 0);
+        //soundIDs[2] = sp.load(this, R.raw.mf_c4, 0);
+        //soundIDs[3] = sp.load(this, R.raw.mf_d4, 0);
+        //soundIDs[4] = sp.load(this, R.raw.mf_e4, 0);
+        //soundIDs[5] = sp.load(this, R.raw.mf_f4, 0);
+        //soundIDs[6] = sp.load(this, R.raw.mf_g4, 0);
 
         mOpenCvCameraView = (CameraBridgeViewBase)findViewById(R.id.activity_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
@@ -222,16 +246,39 @@ public class MainActivity extends AppCompatActivity
         //myarray[1] = 1;
         //myarray[2] = 1;
         //int myarray;
-        //rows = matInput.rows();
-        //cols = matInput.cols();
-        //Log.v(TAG, "rows = " + rows + "cols = " + cols);
+        rows = matInput.rows();
+        cols = matInput.cols();
+        window_resolution[0] = matInput.rows();
+        window_resolution[1] = matInput.cols();
+        Log.i(TAG, "rows = " + rows + "cols = " + cols);
         if ( matResult == null ) {
             matResult = new Mat(matInput.rows(), matInput.cols(), matInput.type());
         }
 
-        stringFromJNI(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), keyboard_press, keyboard_available, check_array);
+        stringFromJNI(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), keyboard_press, keyboard_available, window_resolution);
         //Log.v(TAG, "arr[0] = " + myarray[0] + "arr[1] = " + myarray[1] + "arr[2] = " + myarray[2]);
         //Log.v(TAG, "keyboard_check = " + keyboard_check);
+
+        //if (count == 20) {
+        //    sound_pool.stop(sound_stream[0]);
+        //    //sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
+        //    sound_pool.play(sound[0], 1, 1, 0, 0, 1);
+        //}
+        //if (count == 40) {
+        //    sound_pool.stop(sound_stream[1]);
+        //    //sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
+        //    sound_pool.play(sound[1],1,1,1,0,1);
+        //}
+        //if (count == 60) {
+        //    sound_pool.stop(sound_stream[0]);
+        //    //sound_stream[0] = sound_pool.play(sound[0], 1, 1, 0, 0, 1);
+        //    sound_pool.play(sound[0], 1, 1, 0, 0, 1);
+        //    sound_pool.stop(sound_stream[1]);
+        //    //sound_stream[1] = sound_pool.play(sound[1],1,1,1,0,1);
+        //    sound_pool.play(sound[1],1,1,1,0,1);
+        //    count = 0;
+        //}
+        //count++;
 
         //int true_num = 0;
         //int true_num2 = 0;
@@ -247,8 +294,14 @@ public class MainActivity extends AppCompatActivity
         for(int i = 0 ; i < 14 ; i++){
             if(keyboard_press[i] && keyboard_available[i]) {
                 //true인 것 소리내기 코드
+                //mf_b4소리가 너무커서 볼륨 줄임
                 sound_pool.stop(sound[i]);
-                sound_pool.play(sound[i],1,1,1,0,1);
+                if(i == 13) {
+                    sound_pool.play(sound[i], 1, 1, 1, 0, 1);
+                }
+                else{
+                    sound_pool.play(sound[i], 1, 1, 1, 0, 1);
+                }
                 //소리난것 avail 을 false로 변경
                 keyboard_available[i] = false;
             }
