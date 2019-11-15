@@ -1,3 +1,13 @@
 # ninja log v5
 1	3731	594230982	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
 3735	4284	594230982	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
+4	3645	595487317	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
+3645	4185	595487317	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
+3	2749	595488375	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
+2749	3108	595488376	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
+7	8467	595489316	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
+8853	11792	595489322	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
+3	2374	595491172	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
+2374	2685	595491173	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
+3	2511	595491586	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
+2511	2865	595491586	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
