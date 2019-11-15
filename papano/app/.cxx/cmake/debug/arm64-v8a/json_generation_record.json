@@ -17,7 +17,35 @@
   },
   {
     "level": "INFO",
-    "message": "JSON \u0027D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\arm64-v8a\\android_gradle_build.json\u0027 was up-to-date"
+    "message": "rebuilding JSON D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\arm64-v8a\\android_gradle_build.json due to:"
+  },
+  {
+    "level": "INFO",
+    "message": "- a dependent build file changed"
+  },
+  {
+    "level": "INFO",
+    "message": "  - D:\\Dev\\Software\\papano\\papano\\app\\src\\main\\cpp\\CMakeLists.txt"
+  },
+  {
+    "level": "INFO",
+    "message": "keeping json folder \u0027D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\arm64-v8a\u0027 but regenerating project"
+  },
+  {
+    "level": "INFO",
+    "message": "executing cmake Executable : D:\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\cmake.exe\narguments : \n-HD:\\Dev\\Software\\papano\\papano\\app\\src\\main\\cpp\n-BD:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\arm64-v8a\n-DANDROID_ABI\u003darm64-v8a\n-DANDROID_PLATFORM\u003dandroid-23\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003dD:\\Dev\\Software\\papano\\papano\\app\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\n-DCMAKE_BUILD_TYPE\u003dDebug\n-DANDROID_NDK\u003dD:\\Android\\Sdk\\ndk-bundle\n-DCMAKE_CXX_FLAGS\u003d\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_ANDROID_ARCH_ABI\u003darm64-v8a\n-DCMAKE_SYSTEM_VERSION\u003d23\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_ANDROID_NDK\u003dD:\\Android\\Sdk\\ndk-bundle\n-DCMAKE_TOOLCHAIN_FILE\u003dD:\\Android\\Sdk\\ndk-bundle\\build\\cmake\\android.toolchain.cmake\n-G Ninja\n-DCMAKE_MAKE_PROGRAM\u003dD:\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe\njvmArgs : \n\n"
+  },
+  {
+    "level": "INFO",
+    "message": "done executing cmake"
+  },
+  {
+    "level": "INFO",
+    "message": "write build output D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\arm64-v8a\\build_output.txt"
+  },
+  {
+    "level": "INFO",
+    "message": "write command file D:\\Dev\\Software\\papano\\papano\\app\\.cxx\\cmake\\debug\\arm64-v8a\\build_command.txt"
   },
   {
     "level": "INFO",

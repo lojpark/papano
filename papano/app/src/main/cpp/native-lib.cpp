@@ -6,6 +6,9 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 
+#include <android/log.h>
+
+
 using namespace cv;
 using namespace std;
 
@@ -76,16 +79,31 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     vector<vector<Point>> contours;
     findContours(mask1.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
     unsigned int maxSize = 0;
+    static unsigned int prevSize = 0;
+    static unsigned int trackCount = 0;
 
     Rect maxRect(0, 0, 0, 0);
-    for(int i = 0; i < (int)contours.size(); i++){
-        if(contours[i].size() > maxSize) {
-            maxRect = boundingRect(contours[i]);
+    for(auto & contour : contours){
+        if(contour.size() > maxSize) {
+            maxRect = boundingRect(contour);
+            maxSize = contour.size();
         }
     }
 
-    //matResult = mask1;
-    //rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
+    unsigned int deltaSize = (prevSize > maxSize) ? prevSize - maxSize : maxSize - prevSize;
+    //__android_log_print(ANDROID_LOG_INFO,"OPENCVTEST - JNI", "%d", maxSize);
+    if ((prevSize == 0 || deltaSize < 100) && maxSize > 500) {
+        prevSize = maxSize;
+        trackCount++;
+        if (trackCount >= 30) {
+            isTracking = (jboolean)false;
+        }
+    }
+    else {
+        prevSize = 0;
+        trackCount = 0;
+    }
+
 
     /// RGB를 사용하기 위해서 mask1의 자료형을 RGB로 변환
     cvtColor(mask1, mask1, COLOR_BGR2RGB);
@@ -93,7 +111,12 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
 
 
-    rectangle(mask1, maxRect, Scalar(0, 255, 0), 2);
+    if (!isTracking) {
+        rectangle(mask1, maxRect, Scalar(255, 0, 0), 2);
+    }
+    else {
+        rectangle(mask1, maxRect, Scalar(0, 255, 0), 2);
+    }
 
     //cvtColor(matResult, matResult, COLOR_BGR2RGB);
     ///추출한 결과를 matResult에 저장
@@ -123,7 +146,6 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     ///최종정보를 자바배열에 전달
     env->SetBooleanArrayRegion(keyboard_press, 0, 14, press_fill);
     env->SetBooleanArrayRegion(keyboard_avail, 0, 14, avail_fill);
-    isTracking = (jboolean)false;
 
     return isTracking;
 }
