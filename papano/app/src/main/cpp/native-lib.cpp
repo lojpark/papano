@@ -74,48 +74,49 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     ///핸드폰 카메라 사용시 사각형
     Rect rt3(0, rows - 270, cols, 150);
 
-    //flip(mask1, mask1, 1);
 
     vector<vector<Point>> contours;
     findContours(mask1.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
-    unsigned int maxSize = 0;
-    static unsigned int prevSize = 0;
-    static unsigned int trackCount = 0;
-
-    Rect maxRect(0, 0, 0, 0);
-    for(auto & contour : contours){
-        if(contour.size() > maxSize) {
-            maxRect = boundingRect(contour);
-            maxSize = contour.size();
-        }
-    }
-
-    unsigned int deltaSize = (prevSize > maxSize) ? prevSize - maxSize : maxSize - prevSize;
-    //__android_log_print(ANDROID_LOG_INFO,"OPENCVTEST - JNI", "%d", maxSize);
-    if ((prevSize == 0 || deltaSize < 100) && maxSize > 500) {
-        prevSize = maxSize;
-        trackCount++;
-        if (trackCount >= 30) {
-            isTracking = (jboolean)false;
-        }
-    }
-    else {
-        prevSize = 0;
-        trackCount = 0;
-    }
-
 
     /// RGB를 사용하기 위해서 mask1의 자료형을 RGB로 변환
     cvtColor(mask1, mask1, COLOR_BGR2RGB);
     ///인식 기준선 그리기
-    rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
+    //rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
 
+    unsigned int maxSize = 0;
+    static unsigned int prevSize = 0;
+    static unsigned int trackCount = 0;
+    static Rect trackedRect(0, 0, 0, 0);
+
+    if (isTracking) {
+        Rect maxRect(0, 0, 0, 0);
+        for (auto &contour : contours) {
+            if (contour.size() > maxSize) {
+                maxRect = boundingRect(contour);
+                maxSize = contour.size();
+            }
+        }
+
+        unsigned int deltaSize = (prevSize > maxSize) ? prevSize - maxSize : maxSize - prevSize;
+        __android_log_print(ANDROID_LOG_INFO,"OPENCVTEST - JNI", "%d, %d", maxRect.height, maxRect.width);
+        if ((prevSize == 0 || deltaSize < 200) && maxRect.height > 100 && maxRect.width > 1000) {
+            prevSize = maxSize;
+            trackCount++;
+            if (trackCount >= 100) {
+                isTracking = (jboolean) false;
+                trackedRect = maxRect;
+            }
+        }
+        else {
+            prevSize = 0;
+            trackCount = 0;
+        }
+
+        rectangle(mask1, maxRect, Scalar(0, 255, 0), 2);
+    }
 
     if (!isTracking) {
-        rectangle(mask1, maxRect, Scalar(255, 0, 0), 2);
-    }
-    else {
-        rectangle(mask1, maxRect, Scalar(0, 255, 0), 2);
+        rectangle(mask1, trackedRect, Scalar(255, 0, 0), 2);
     }
 
     //cvtColor(matResult, matResult, COLOR_BGR2RGB);
