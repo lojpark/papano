@@ -1,20 +1,20 @@
-Executable : D:\Android\Sdk\cmake\3.10.2.4988404\bin\cmake.exe
+Executable : /Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake
 arguments : 
--HD:\Dev\Software\papano\papano\app\src\main\cpp
--BD:\Dev\Software\papano\papano\app\.cxx\cmake\debug\x86_64
+-H/Users/lojpark/AndroidStudioProjects/papano/papano/app/src/main/cpp
+-B/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/x86_64
 -DANDROID_ABI=x86_64
 -DANDROID_PLATFORM=android-23
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\Dev\Software\papano\papano\app\build\intermediates\cmake\debug\obj\x86_64
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lojpark/AndroidStudioProjects/papano/papano/app/build/intermediates/cmake/debug/obj/x86_64
 -DCMAKE_BUILD_TYPE=Debug
--DANDROID_NDK=D:\Android\Sdk\ndk-bundle
+-DANDROID_NDK=/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570
 -DCMAKE_CXX_FLAGS=
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_ANDROID_ARCH_ABI=x86_64
 -DCMAKE_SYSTEM_VERSION=23
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_ANDROID_NDK=D:\Android\Sdk\ndk-bundle
--DCMAKE_TOOLCHAIN_FILE=D:\Android\Sdk\ndk-bundle\build\cmake\android.toolchain.cmake
+-DCMAKE_ANDROID_NDK=/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570
+-DCMAKE_TOOLCHAIN_FILE=/Users/lojpark/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake
 -G Ninja
--DCMAKE_MAKE_PROGRAM=D:\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+-DCMAKE_MAKE_PROGRAM=/Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
 jvmArgs : 
 

@@ -28,10 +28,7 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     double max_rect_size = 0;
     int keyborad_check = 1;
     int key_num = 14;
-    //jintArray returns[3] = {0, 0, 0};
-    //jintArray result;
-    //result = env->NewIntArray(3);
-    //result[0] = 1;
+
     jboolean press_fill[14];
     jboolean avail_fill[14];
     jint check_fill[3];
@@ -40,23 +37,15 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
 
     env->SetIntArrayRegion(window_resolution, 0, 2, win_resol);
 
-    //for (int i = 0; i < 3; i++) {
-    //    check_fill[i] = 1;
-    //}
-    //env->SetIntArrayRegion(check_array, 0, 3, check_fill);
 
     //press_fill array 초기화
     for (int i = 0; i < key_num; i++) {
         press_fill[i] = false;
     }
 
-    //env->SetBooleanArrayRegion(keyboard_press, 0, 14, press_fill);
-    //env->SetBooleanArrayRegion(keyboard_press, 0, 14, press_fill);
     // keyboard_avail array를 avail_fill에 복사
     env->GetBooleanArrayRegion(keyboard_avail, 0, 14, avail_fill);
 
-    //matResult = matInput;
-    //cvtColor(matInput, matResult, COLOR_RGBA2GRAY);
     /// 웹캠(AVD)를 사용할 경우 입력으로 들어온  matInput의 타입을 BGR에서 RGB로 변환하여 rgb에 저장
     //cvtColor(matInput, rgb, COLOR_BGR2RGB);
     /// 웹캠(AVD)를 사용할 경우 rgb의 타입을 HSV로 변환하여 hsv에 저장
@@ -98,12 +87,7 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     //flip(mask1, mask1, 1);
 
     vector<vector<Point>> contours;
-    //vector<vector<Point>> contours2;
-    //vector<Point> mycontour1;
-    //mycontour1.push_back(Point(300, 300));
-    //mycontour1.push_back(Point(400, 300));
-    //mycontour1.push_back(Point(300, 400));
-    //contours2.push_back(mycontour1);
+
     findContours(mask1.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
     vector<Rect> rects;
     vector<RotatedRect> r_rects;
@@ -115,100 +99,30 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
             r_rects.push_back(r_rec);
         }
     }
-    //matResult = mask1;
-    //rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
 
     /// RGB를 사용하기 위해서 mask1의 자료형을 RGB로 변환
     cvtColor(mask1, mask1, COLOR_BGR2RGB);
-    ///인식 기준선 그리기
-    rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
-
 
     for(int i = 0 ; i < (int)rects.size() ; i++){
         rectangle(mask1, rects.at(i), Scalar(0, 255, 0), 2);
-
-        //Point2f vertices2f[4];
-        //RotatedRect temp_ro_rect = r_rects.at(0);
-        //temp_ro_rect.points(vertices2f);
-        //Point vertices[4];
-        //for(int i = 0; i < 4; ++i){
-        //    vertices[i] = vertices2f[i];
-        //}
-        //Scalar temp_color = Scalar(0, 255, 0);
-        //fillConvexPoly(mask1, vertices, 4, temp_color);
     }
 
-
-    //drawContours(mask1, contours, -1, Scalar(255, 0, 0), 2);
-    //if(contours.size() > 0){
-    //    rectangle(mask1, rt3, Scalar(255, 0, 0), 2);
-    //    for(int i = 0 ; i < contours.size() ; i ++){
-    //        if(i == 0) {
-    //            main_rect_num = i;
-    //            max_rect_size = contourArea(contours.at(i));
-    //        }
-    //        else{
-    //            if(contourArea(contours.at(i)) > max_rect_size){
-    //                main_rect_num = i;
-    //                max_rect_size = contourArea(contours.at(i));
-    //            }
-    //        }
-    //    }
-    //    Rect main_rect = boundingRect(contours.at(main_rect_num));
-    //    //rectangle(mask1, main_rect, Scalar(255, 0, 0), 2);
-    //}
-    //Rect main_rect = boundingRect(contours.at(main_rect_num));
-    //rectangle(mask1, main_rect, Scalar(255, 0, 0), 2);
-    //for(int i = 0 ; i < contours.size() ; i ++){
-    //    if(i = 0) {
-    //        main_rect_num = i;
-    //    }
-    //}
-
-    //matResult = mask1;
-    //rectangle(matResult, rt3, Scalar(255, 255, 255), 2);
-
-
-    //Vec3b color = matResult.at<Vec3b>(Point(1, 1));
-
-
-    //cvtColor(matResult, matResult, COLOR_BGR2RGB);
     ///추출한 결과를 matResult에 저장
     matResult = mask1;
     ///웹캠(AVD) 사용시 좌우반전
     //flip(matResult, matResult, 1);
 
-    //matResult = hsv;
-
     Vec3b color;
-    //Vec3i color2;
     int x = 0;
     int y = matResult.rows - 130;
-    //line(matResult, Point(10, y), Point(1270, y), Scalar(0, 255, 0), 2);
-    //for(x = 10 ; x < matResult.cols - 10 ; x++){
-    //    color = matResult.at<Vec3b>(Point(x, y));
-    //    //color2 = matResult.at<Vec3i>(Point(x, y));
-    //    if(color.val[0] == 0){
-    //        keyborad_check = 0;
-    //        break;
-    //    }
-    //    else{
-    //        matResult.at<Vec3b>(y - 40, x).val[0] = 255;
-    //        matResult.at<Vec3b>(y - 40, x).val[1] = 0;
-    //        matResult.at<Vec3b>(y - 40, x).val[2] = 0;
-    //        matResult.at<Vec3b>(x, y).val[0] = 0;
-    //        matResult.at<Vec3b>(x, y).val[1] = 0;
-    //        matResult.at<Vec3b>(x, y).val[2] = 255;
-    //    }
-    //}
-    //fill_num = 0;
     ///건반이 눌렸는지, avail 혹은 unavail인지 확인
+    /*
     int interval = cols / 14;
     int sub_interval = interval / 9;
     for(int i = 0 ; i < key_num ; i++) {
         for(int j = i * interval + 4 * sub_interval ; j < i * interval + 5 * sub_interval ; j++){
             color = matResult.at<Vec3b>(Point(j, y));
-            if(/*j == i * interval + interval / 2 && */color.val[0] == 0 && fill_num < 3){
+            if(color.val[0] == 0 && fill_num < 3){
                 press_fill[i] = true;
                 fill_num++;
                 break;
@@ -217,19 +131,11 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
                 avail_fill[i] = true;
             }
         }
-        //if(fill_num == 3){
-        //    fill_num = 0;
-        //    break;
-        //}
     }
+    */
     ///최종정보를 자바배열에 전달
     env->SetBooleanArrayRegion(keyboard_press, 0, 14, press_fill);
     env->SetBooleanArrayRegion(keyboard_avail, 0, 14, avail_fill);
-    //check_fill[0] = fill_num + 4;
-    //env->SetIntArrayRegion(check_array, 0, 3, check_fill);
-    //env->Get
-    //std::string hello = "Hello from C++";
-    //return env->NewStringUTF(hello.c_str());
-    //return *returns;
+
     return x;
 }

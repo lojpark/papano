@@ -1,7 +1,7 @@
-Executable : D:\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+Executable : /Users/lojpark/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
 arguments : 
 -C
-D:\Dev\Software\papano\papano\app\.cxx\cmake\debug\armeabi-v7a
+/Users/lojpark/AndroidStudioProjects/papano/papano/app/.cxx/cmake/debug/armeabi-v7a
 native-lib
 jvmArgs : 
 

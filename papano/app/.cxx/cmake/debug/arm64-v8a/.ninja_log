@@ -1,3 +1,3 @@
 # ninja log v5
-1	3731	594230982	CMakeFiles/native-lib.dir/native-lib.cpp.o	a0e8489849d21863
-3735	4284	594230982	D:/Dev/Software/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	67446f6ee304b03e
+1	6792	1574408609	CMakeFiles/native-lib.dir/native-lib.cpp.o	247b5e279ab91d10
+6794	7336	1574408609	/Users/lojpark/AndroidStudioProjects/papano/papano/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	cfe52d00bec34219
