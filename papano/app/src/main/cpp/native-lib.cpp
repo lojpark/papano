@@ -23,7 +23,7 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     Mat &matResult = *(Mat *)matAddrResult;
     int rows = matInput.rows;
     int cols = matInput.cols;
-    Mat rgb, hsv, mask1, mask2;
+    Mat rgb, ycrcb, mask1, mask2;
     int main_rect_num = 0;
     double max_rect_size = 0;
     int keyborad_check = 1;
@@ -52,7 +52,7 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     //cvtColor(rgb, hsv, COLOR_RGB2HSV);
     ///핸드폰 카메라를 사용할 경우
     cvtColor(matInput, rgb, COLOR_RGBA2RGB);
-    cvtColor(rgb, hsv, COLOR_RGB2HSV);
+    cvtColor(rgb, ycrcb, COLOR_RGB2YCrCb);
 
     /// hsv에서 특정 색을 분리하여 mask1, mask2에 저장하고 mask1에 합친다
     ///빨강추출
@@ -66,7 +66,7 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     ///웹캠
     //inRange(hsv, Scalar(110, 75, 100), Scalar(130, 255, 255), mask1);
     ///핸드폰
-    inRange(hsv, Scalar(100, 30, 120), Scalar(120, 255, 255), mask1);
+    inRange(ycrcb, Scalar(0, 142, 95), Scalar(255, 165, 135), mask1);
 
     ///빨간색 추출시 사용
     //mask1 = mask1 + mask2;

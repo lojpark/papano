@@ -1,3 +1,5 @@
 # ninja log v5
 1	3759	1574408613	CMakeFiles/native-lib.dir/native-lib.cpp.o	b07f1f1e86888d9c
 3763	4085	1574408613	/Users/lojpark/AndroidStudioProjects/papano/papano/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	fc3a53d1ba8f40db
+2	3959	1574409095	CMakeFiles/native-lib.dir/native-lib.cpp.o	b07f1f1e86888d9c
+3959	4352	1574409095	/Users/lojpark/AndroidStudioProjects/papano/papano/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	fc3a53d1ba8f40db
