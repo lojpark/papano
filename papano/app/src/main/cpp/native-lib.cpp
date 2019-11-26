@@ -11,10 +11,10 @@ using namespace std;
 
 void removeBg(Mat& src, Ptr<BackgroundSubtractor> pBackSub) {
     Mat fgmask, ret;
-    pBackSub->apply(src, fgmask, 0);
+    pBackSub->apply(src, fgmask);
 
-    Mat element = getStructuringElement(MORPH_RECT, Size(3, 3));
-    erode(fgmask, element, 1);
+    Mat element = getStructuringElement(MORPH_RECT, Size(3, 3), Point(1, 1));
+    erode(fgmask, fgmask, element);
 
     bitwise_and(src, src, ret, fgmask);
 
@@ -59,13 +59,11 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
 
     // Set background
     //static Mat background = matInput;
-    static Ptr<BackgroundSubtractor> pBackSub;
-    pBackSub = createBackgroundSubtractorMOG2();
+    static Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorMOG2();
 
-    //removeBg(matInput, pBackSub);
+    removeBg(matInput, pBackSub);
     // asdfasdf
-    //mask1 = matInput;
-    pBackSub->apply(matInput, mask1);
+    mask1 = matInput;
 
     //cvtColor(matInput, rgb, COLOR_RGBA2RGB);
     //cvtColor(rgb, ycrcb, COLOR_RGB2YCrCb);
