@@ -5,10 +5,21 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
-
+#include <opencv2/video/background_segm.hpp>
 using namespace cv;
 using namespace std;
 
+void removeBg(Mat& src, Ptr<BackgroundSubtractor> pBackSub) {
+    Mat fgmask, ret;
+    pBackSub->apply(src, fgmask, 0);
+
+    Mat element = getStructuringElement(MORPH_RECT, Size(3, 3));
+    erode(fgmask, element, 1);
+
+    bitwise_and(src, src, ret, fgmask);
+
+    src = ret;
+}
 
 extern "C" JNIEXPORT int JNICALL
 Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
@@ -46,46 +57,27 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     // keyboard_avail array를 avail_fill에 복사
     env->GetBooleanArrayRegion(keyboard_avail, 0, 14, avail_fill);
 
-    /// 웹캠(AVD)를 사용할 경우 입력으로 들어온  matInput의 타입을 BGR에서 RGB로 변환하여 rgb에 저장
-    //cvtColor(matInput, rgb, COLOR_BGR2RGB);
-    /// 웹캠(AVD)를 사용할 경우 rgb의 타입을 HSV로 변환하여 hsv에 저장
-    //cvtColor(rgb, hsv, COLOR_RGB2HSV);
-    ///핸드폰 카메라를 사용할 경우
-    cvtColor(matInput, rgb, COLOR_RGBA2RGB);
-    cvtColor(rgb, ycrcb, COLOR_RGB2YCrCb);
+    // Set background
+    //static Mat background = matInput;
+    static Ptr<BackgroundSubtractor> pBackSub;
+    pBackSub = createBackgroundSubtractorMOG2();
 
-    /// hsv에서 특정 색을 분리하여 mask1, mask2에 저장하고 mask1에 합친다
-    ///빨강추출
-    //inRange(hsv, Scalar(0, 75, 100), Scalar(10, 255, 255), mask1);
-    //inRange(hsv, Scalar(170, 75, 100), Scalar(180, 255, 255), mask2);
+    //removeBg(matInput, pBackSub);
+    // asdfasdf
+    //mask1 = matInput;
+    pBackSub->apply(matInput, mask1);
 
-    ///녹색추출
-    //inRange(hsv, Scalar(55, 25, 25), Scalar(85, 255, 255), mask1);
+    //cvtColor(matInput, rgb, COLOR_RGBA2RGB);
+    //cvtColor(rgb, ycrcb, COLOR_RGB2YCrCb);
 
-    ///파랑추출
-    ///웹캠
-    //inRange(hsv, Scalar(110, 75, 100), Scalar(130, 255, 255), mask1);
     ///핸드폰
-    inRange(ycrcb, Scalar(0, 142, 95), Scalar(255, 165, 135), mask1);
+    //inRange(ycrcb, Scalar(0, 142, 95), Scalar(255, 165, 135), mask1);
 
-    ///빨간색 추출시 사용
-    //mask1 = mask1 + mask2;
 
     matResult = mask1;
-    //matResult = hsv;
-    //matResult = rgb;
-
-    ///임의의 사각형 생성
-    ///현재 가로세로 픽셀 = 1280, 960 하지만 카메라에 나타나는 영역픽셀 = 1280, 720
-    Rect rt1(900, 600, 300, 300);
-    Rect rt2(cols - 300, rows - 300, 300, 300);
-    ///AVD사용시 사각형
-    //Rect rt3(0, rows - 270, cols, 150);
-    ///핸드폰 카메라 사용시 사각형
-    Rect rt3(0, rows - 270, cols, 150);
 
     //flip(mask1, mask1, 1);
-
+/*
     vector<vector<Point>> contours;
 
     findContours(mask1.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
@@ -116,7 +108,7 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     int x = 0;
     int y = matResult.rows - 130;
     ///건반이 눌렸는지, avail 혹은 unavail인지 확인
-    /*
+
     int interval = cols / 14;
     int sub_interval = interval / 9;
     for(int i = 0 ; i < key_num ; i++) {
@@ -137,5 +129,5 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     env->SetBooleanArrayRegion(keyboard_press, 0, 14, press_fill);
     env->SetBooleanArrayRegion(keyboard_avail, 0, 14, avail_fill);
 
-    return x;
+    return 0;
 }
