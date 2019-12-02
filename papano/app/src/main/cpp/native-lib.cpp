@@ -6,12 +6,15 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/video/background_segm.hpp>
+#include <android/log.h>
+
+
 using namespace cv;
 using namespace std;
 
 void removeBg(Mat& src, Ptr<BackgroundSubtractor> pBackSub) {
     Mat fgmask, ret;
-    pBackSub->apply(src, fgmask);
+    pBackSub->apply(src, fgmask, 0);
 
     Mat element = getStructuringElement(MORPH_RECT, Size(3, 3), Point(1, 1));
     erode(fgmask, fgmask, element);
@@ -19,6 +22,29 @@ void removeBg(Mat& src, Ptr<BackgroundSubtractor> pBackSub) {
     bitwise_and(src, src, ret, fgmask);
 
     src = ret;
+}
+
+Point getCentroid(vector<Point> contour) {
+
+
+    Moments moment = moments(contour);
+    Point ret(0, 0);
+
+    if (moment.m00 != 0) {
+        ret.x = (int)(moment.m10 / moment.m00);
+        ret.y = (int)(moment.m01 / moment.m00);
+    }
+    return ret;
+}
+
+void cacluateFingers(vector<Point> contour, Mat& src) {
+    //Mat ret;
+    Point centroid = getCentroid(contour);
+
+    __android_log_print(ANDROID_LOG_INFO,"OPENCVTEST - JNI", "%d, %d", centroid.x, centroid.y);
+    circle(src, centroid, 12, Scalar(255, 0, 255), 10);
+
+    //src = ret;
 }
 
 extern "C" JNIEXPORT int JNICALL
@@ -62,17 +88,48 @@ Java_com_example_wherever_1piano_MainActivity_stringFromJNI(
     static Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorMOG2();
 
     removeBg(matInput, pBackSub);
-    // asdfasdf
-    mask1 = matInput;
 
-    //cvtColor(matInput, rgb, COLOR_RGBA2RGB);
-    //cvtColor(rgb, ycrcb, COLOR_RGB2YCrCb);
+    cvtColor(matInput, rgb, COLOR_RGBA2RGB);
+    cvtColor(rgb, ycrcb, COLOR_RGB2YCrCb);
 
     ///핸드폰
-    //inRange(ycrcb, Scalar(0, 142, 95), Scalar(255, 165, 135), mask1);
+    inRange(ycrcb, Scalar(0, 132, 85), Scalar(255, 175, 145), mask1);
 
+    vector<vector<Point>> contours;
+    double largest_area = 0.0;
+    int largest_contour_index = 0;
 
-    matResult = mask1;
+    findContours(mask1.clone(), contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
+
+    if (!contours.empty())
+    {
+        matResult = Scalar(0,0,0);
+
+        // Find largest contour
+        for (size_t i = 0; i < contours.size(); i++)
+        {
+            double a = contourArea(contours[i], false);
+            if (a > largest_area)
+            {
+                largest_area = a;
+                largest_contour_index = i;
+            }
+        }
+
+        // Draw largest contors
+        drawContours(matResult, contours, largest_contour_index, Scalar(255, 255, 255), 1);
+
+        // Find convex hull of largest contour
+        vector<Point>hull;
+        convexHull(contours[largest_contour_index], hull, true, true);
+
+        // Draw the convex hull
+        vector<vector<Point>> tmp;
+        tmp.push_back(hull);
+        drawContours(matResult, tmp, 0, Scalar(0, 0, 255), 3);
+
+        cacluateFingers(contours[largest_contour_index], matResult);
+    }
 
     //flip(mask1, mask1, 1);
 /*
