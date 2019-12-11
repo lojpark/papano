@@ -1,5 +1,6 @@
 #include <jni.h>
 #include <string>
+#include <algorithm>
 #include <opencv2/opencv.hpp>
 #include <opencv2/photo.hpp>
 #include <opencv2/imgproc.hpp>
@@ -11,6 +12,10 @@
 
 using namespace cv;
 using namespace std;
+
+bool cmp(Point t, Point u) {
+    return t.y > u.y;
+}
 
 void removeBg(Mat& src, Ptr<BackgroundSubtractor> pBackSub) {
     Mat fgmask, ret;
@@ -37,12 +42,51 @@ Point getCentroid(vector<Point> contour) {
     return ret;
 }
 
+vector<Point> getFarthestPoints(vector<Point> contour, Point centroid) {
+    int n = contour.size();
+    vector<Point> ret;
+
+    if (n == 0 || (centroid.x == 0 && centroid.y == 0)) {
+        return ret;
+    }
+
+    sort(contour.begin(), contour.end(), cmp);
+    for (int i = 0; i < n; i++) {
+        if (contour[i].y < centroid.y) {
+            continue;
+        }
+
+        int minDistance = 2147483647;
+        int m = ret.size();
+        for (int j = 0; j < m; j++) {
+            if (minDistance > abs(ret[j].x - contour[i].x)) {
+                minDistance = abs(ret[j].x - contour[i].x);
+            }
+        }
+
+        if (minDistance >= 100) {
+            ret.push_back(contour[i]);
+        }
+
+        if (ret.size() >= 5) {
+            break;
+        }
+    }
+
+    return ret;
+}
+
 void cacluateFingers(vector<Point> contour, Mat& src) {
     //Mat ret;
     Point centroid = getCentroid(contour);
 
-    __android_log_print(ANDROID_LOG_INFO,"OPENCVTEST - JNI", "%d, %d", centroid.x, centroid.y);
+    //__android_log_print(ANDROID_LOG_INFO,"OPENCVTEST - JNI", "%d", n);
     circle(src, centroid, 12, Scalar(255, 0, 255), 10);
+
+    vector<Point> farthestPoints = getFarthestPoints(contour, centroid);
+    for (int i = 0; i < (int)farthestPoints.size(); i++) {
+        circle(src, farthestPoints[i], 12, Scalar(255, 0, 0), 10);
+    }
 
     //src = ret;
 }
