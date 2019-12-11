@@ -42,69 +42,69 @@ public class MainActivity extends AppCompatActivity
     public  int entered_key = 0;
     public  int rows = 0;
     public  int cols = 0;
-    boolean[] keyboard_press = new boolean[14];
-    boolean[] keyboard_available = new boolean[14];
+    boolean[] keyboard_press = new boolean[21];
+    boolean[] keyboard_available = new boolean[21];
     int[] window_resolution = new int[2];
     //int[] check_array = new int[3];
 
     //int[] pianos = {R.raw.mf_a4, R.raw.mf_b4, R.raw.mf_c4, R.raw.mf_d4, R.raw.mf_e4, R.raw.mf_f4, R.raw.mf_g4};
     SoundPool sound_pool;
-    int sound[] = new int[14];
-    int sound_stream[] = new int[14];
-    MediaPlayer[] mediaplayers = {new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer()};
-    private MediaPlayer[] mediaFiles;
-    AudioAttributes audio_att = new AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_MEDIA)
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .build();
-
-    SoundPool sp = new SoundPool.Builder()
-            .setAudioAttributes(audio_att)
-            .setMaxStreams(7)
-            .build();
-    int[] soundIDs = {0, 0, 0, 0, 0, 0, 0};
+    int sound[] = new int[21];
+    //int sound_stream[] = new int[14];
+    //MediaPlayer[] mediaplayers = {new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer(), new MediaPlayer()};
+    //private MediaPlayer[] mediaFiles;
+    //AudioAttributes audio_att = new AudioAttributes.Builder()
+    //        .setUsage(AudioAttributes.USAGE_MEDIA)
+    //        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+    //        .build();
+//
+    //SoundPool sp = new SoundPool.Builder()
+    //        .setAudioAttributes(audio_att)
+    //        .setMaxStreams(7)
+    //        .build();
+    //int[] soundIDs = {0, 0, 0, 0, 0, 0, 0};
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
     public native int stringFromJNI(long matAddrInput, long matAddrResult, boolean[] key_press, boolean[] key_avail, int[] window_resolution);
 
-    public void play(int num){
-        if (!mediaplayers[num].isPlaying())
-            mediaplayers[num].start();
-        else{
-            mediaplayers[num].stop();
-            try {
-                mediaplayers[num].setAudioAttributes(audio_att);
-                mediaplayers[num].prepare();
-            }
-            catch (Exception e){
-
-            }
-            mediaplayers[num].start();
-        }
-    }
-
-    public void play2(int num, int num2){
-        if (!mediaplayers[num].isPlaying() && !mediaplayers[num2].isPlaying()) {
-            mediaplayers[num].start();
-            mediaplayers[num2].start();
-        }
-        else{
-            mediaplayers[num].stop();
-            mediaplayers[num2].stop();
-            try {
-                mediaplayers[num].setAudioAttributes(audio_att);
-                mediaplayers[num].prepare();
-                mediaplayers[num2].setAudioAttributes(audio_att);
-                mediaplayers[num2].prepare();
-            }
-            catch (Exception e){
-
-            }
-            mediaplayers[num].start();
-            mediaplayers[num2].start();
-        }
-    }
+    //public void play(int num){
+    //    if (!mediaplayers[num].isPlaying())
+    //        mediaplayers[num].start();
+    //    else{
+    //        mediaplayers[num].stop();
+    //        try {
+    //            mediaplayers[num].setAudioAttributes(audio_att);
+    //            mediaplayers[num].prepare();
+    //        }
+    //        catch (Exception e){
+//
+    //        }
+    //        mediaplayers[num].start();
+    //    }
+    //}
+//
+    //public void play2(int num, int num2){
+    //    if (!mediaplayers[num].isPlaying() && !mediaplayers[num2].isPlaying()) {
+    //        mediaplayers[num].start();
+    //        mediaplayers[num2].start();
+    //    }
+    //    else{
+    //        mediaplayers[num].stop();
+    //        mediaplayers[num2].stop();
+    //        try {
+    //            mediaplayers[num].setAudioAttributes(audio_att);
+    //            mediaplayers[num].prepare();
+    //            mediaplayers[num2].setAudioAttributes(audio_att);
+    //            mediaplayers[num2].prepare();
+    //        }
+    //        catch (Exception e){
+//
+    //        }
+    //        mediaplayers[num].start();
+    //        mediaplayers[num2].start();
+    //    }
+    //}
 
 
     static {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        for(int i = 0 ; i < 14 ; i++){
+        for(int i = 0 ; i < 21 ; i++){
             keyboard_press[i] = false;
             keyboard_available[i] = false;
         }
@@ -150,22 +150,29 @@ public class MainActivity extends AppCompatActivity
         //    check_array[i] = 0;
         //}
 
-        sound_pool = new SoundPool.Builder().setMaxStreams(14).build();
+        sound_pool = new SoundPool.Builder().setMaxStreams(21).build();
         // 미리 로드.
-        sound[0] = sound_pool.load(this, R.raw.mf_b5,0);
-        sound[1] = sound_pool.load(this, R.raw.mf_a5,0);
-        sound[2] = sound_pool.load(this, R.raw.mf_g5,0);
-        sound[3] = sound_pool.load(this, R.raw.mf_f5,0);
-        sound[4] = sound_pool.load(this, R.raw.mf_e5,0);
-        sound[5] = sound_pool.load(this, R.raw.mf_d5,0);
-        sound[6] = sound_pool.load(this, R.raw.mf_c5,0);
-        sound[7] = sound_pool.load(this, R.raw.mf_b4,0);
-        sound[8] = sound_pool.load(this, R.raw.mf_a4,0);
-        sound[9] = sound_pool.load(this, R.raw.mf_g4,0);
-        sound[10] = sound_pool.load(this, R.raw.mf_f4,0);
-        sound[11] = sound_pool.load(this, R.raw.mf_e4,0);
-        sound[12] = sound_pool.load(this, R.raw.mf_d4,0);
-        sound[13] = sound_pool.load(this, R.raw.mf_c4,0);
+        sound[0] = sound_pool.load(this, R.raw.mf_b6,0);
+        sound[1] = sound_pool.load(this, R.raw.mf_a6,0);
+        sound[2] = sound_pool.load(this, R.raw.mf_g6,0);
+        sound[3] = sound_pool.load(this, R.raw.mf_f6,0);
+        sound[4] = sound_pool.load(this, R.raw.mf_e6,0);
+        sound[5] = sound_pool.load(this, R.raw.mf_d6,0);
+        sound[6] = sound_pool.load(this, R.raw.mf_c6,0);
+        sound[7] = sound_pool.load(this, R.raw.mf_b5,0);
+        sound[8] = sound_pool.load(this, R.raw.mf_a5,0);
+        sound[9] = sound_pool.load(this, R.raw.mf_g5,0);
+        sound[10] = sound_pool.load(this, R.raw.mf_f5,0);
+        sound[11] = sound_pool.load(this, R.raw.mf_e5,0);
+        sound[12] = sound_pool.load(this, R.raw.mf_d5,0);
+        sound[13] = sound_pool.load(this, R.raw.mf_c5,0);
+        sound[14] = sound_pool.load(this, R.raw.mf_b4,0);
+        sound[15] = sound_pool.load(this, R.raw.mf_a4,0);
+        sound[16] = sound_pool.load(this, R.raw.mf_g4,0);
+        sound[17] = sound_pool.load(this, R.raw.mf_f4,0);
+        sound[18] = sound_pool.load(this, R.raw.mf_e4,0);
+        sound[19] = sound_pool.load(this, R.raw.mf_d4,0);
+        sound[20] = sound_pool.load(this, R.raw.mf_c4,0);
 
         //mediaplayer.setAudioAttributes(audio_att);
         //mediaplayer = MediaPlayer.create(this, R.raw.mf_a4);
@@ -246,14 +253,15 @@ public class MainActivity extends AppCompatActivity
         //myarray[1] = 1;
         //myarray[2] = 1;
         //int myarray;
-        rows = matInput.rows();
-        cols = matInput.cols();
-        window_resolution[0] = matInput.rows();
-        window_resolution[1] = matInput.cols();
-        Log.i(TAG, "rows = " + rows + "cols = " + cols);
-        if ( matResult == null ) {
-            matResult = new Mat(matInput.rows(), matInput.cols(), matInput.type());
-        }
+        //디버깅코드
+        //rows = matInput.rows();
+        //cols = matInput.cols();
+        //window_resolution[0] = matInput.rows();
+        //window_resolution[1] = matInput.cols();
+        //Log.i(TAG, "rows = " + rows + "cols = " + cols);
+        //if ( matResult == null ) {
+        //    matResult = new Mat(matInput.rows(), matInput.cols(), matInput.type());
+        //}
 
         stringFromJNI(matInput.getNativeObjAddr(), matResult.getNativeObjAddr(), keyboard_press, keyboard_available, window_resolution);
         //Log.v(TAG, "arr[0] = " + myarray[0] + "arr[1] = " + myarray[1] + "arr[2] = " + myarray[2]);
@@ -290,26 +298,14 @@ public class MainActivity extends AppCompatActivity
         //        true_num2++;
         //    }
         //}
-        //Log.v(TAG, "true num1 = " + true_num + " true num2 = " + true_num2 + " check_num = " + check_array[0]);
-        for(int i = 0 ; i < 14 ; i++){
+        //Log.v(TAG, "true num1 = " + true_num + " true num2 = " + true_num2);
+        for(int i = 0 ; i < 21 ; i++){
             if(keyboard_press[i] && keyboard_available[i]) {
-                //true인 것 소리내기 코드
-                //mf_b4소리가 너무커서 볼륨 줄임
                 sound_pool.stop(sound[i]);
-                if(i == 13) {
-                    sound_pool.play(sound[i], 1, 1, 1, 0, 1);
-                }
-                else{
-                    sound_pool.play(sound[i], 1, 1, 1, 0, 1);
-                }
-                //소리난것 avail 을 false로 변경
+                sound_pool.play(sound[i], 1, 1, 1, 0, 1);
                 keyboard_available[i] = false;
             }
         }
-        //for(int i = 0 ; i < 14 ; i++){
-        //    keyboard_press[i] = false;
-            //keyboard_available[i] = false;
-        //}
 
         return matResult;
     }
